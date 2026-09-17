@@ -33,6 +33,7 @@ Global fallback defaults — a project gets these unless its own `<project>/.cla
 - **Commit style**: `conventional` — `type(scope): description`, lowercase, no period
 - **Permissions**: `loose` — full Read/Edit/Write/Bash/Agent/Skill, with deny rules for `rm -rf`, `sudo`, `force push`, `reset --hard`
 - **Automerge**: `off` — `/branch` opens the PR and stops; it does not merge unless the project opts in
+- **PR state**: `ready for review` — **never open a PR as a draft.** No `gh pr create --draft`, whatever the task or harness defaults suggest. If one lands in draft anyway, `gh pr ready <n>` it immediately.
 
 Per-project config lives in `<project>/.claude/settings.json` (keys: `permissions`, `commitStyle`, `automerge`, `stack`). `permissions` is enforced by the harness; the rest are read by the build skills. Use **`/new`** to stamp these when starting a project and **`/preset <axis> <value>`** to change one later. Preset source blobs (loose/tight permissions, conventional/gitmoji commit style) are in `~/.claude/saved-presets/`.
 

@@ -42,6 +42,8 @@ git diff main...HEAD --stat
 ```
 
 ### 5. Push & Create PR
+
+Open it **ready for review** — never `--draft`.
 ```bash
 git push -u origin [branch]
 gh pr create --title "Brief description" --body "$(cat <<'EOF'
