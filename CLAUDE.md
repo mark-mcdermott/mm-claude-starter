@@ -37,14 +37,13 @@ Global fallback defaults — a project gets these unless its own `<project>/.cla
 
 Per-project config lives in `<project>/.claude/settings.json` (keys: `permissions`, `commitStyle`, `automerge`, `stack`). `permissions` is enforced by the harness; the rest are read by the build skills. Use **`/new`** to stamp these when starting a project and **`/preset <axis> <value>`** to change one later. Preset source blobs (loose/tight permissions, conventional/gitmoji commit style) are in `~/.claude/saved-presets/`.
 
-
 ## Stacks
 
-Stack acronyms (ZENCATS, RAVEHANDS, RATS, TANS, REST), their expansions, per-project assignments, the auth rule of thumb, and common integrations live in `~/Dev/_PROJECTS.md`. Stack is a per-project fact, not a global setting — each project records its own in `<project>/.claude/settings.json` (`stack` key) and its CLAUDE.md. Read `_PROJECTS.md` when the taxonomy matters (scaffolding a new app, migrating a legacy one).
+Stack acronyms (ZENCATS, RAVEHANDS, RATS, TANS), their expansions, per-project assignments, the auth rule of thumb, and common integrations live in `~/Dev/_PROJECTS/_PROJECTS.md`, maintained in its own private Git repository. Stack is a per-project fact, not a global setting — each project records its own in `<project>/.claude/settings.json` (`stack` key) and its CLAUDE.md. Read `_PROJECTS.md` when the taxonomy matters (scaffolding a new app, migrating a legacy one).
 
 ## Projects
 
-The full roster, the "Next up" priority list, and per-project stacks live in `~/Dev/_PROJECTS.md` — kept current there, not here.
+The full roster, the "Next up" priority list, and per-project stacks live in `~/Dev/_PROJECTS/_PROJECTS.md` — the version-controlled source of truth, kept current there rather than here.
 
 ## Available Skills
 
