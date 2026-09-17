@@ -22,6 +22,10 @@ on:
         description: pnpm or npm. pnpm reads its own version from packageManager in package.json.
         type: string
         default: pnpm
+      lint-script:
+        description: Script that lints. Empty skips the gate — not every repo has one.
+        type: string
+        default: ""
       typecheck-script:
         description: Script that typechecks. Empty skips the gate.
         type: string
@@ -69,6 +73,14 @@ jobs:
 
       # Separate steps so a red run names which gate failed. Script names reach
       # the shell through env, never string-interpolated into run:.
+      - name: Lint
+        if: inputs.lint-script != ''
+        env:
+          PM: ${{ inputs.package-manager }}
+          SCRIPT: ${{ inputs.lint-script }}
+        run: |
+          "$PM" run "$SCRIPT"
+
       - name: Typecheck
         if: inputs.typecheck-script != ''
         env:

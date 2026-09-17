@@ -23,7 +23,7 @@ Copy `.claude/` and `CLAUDE.md` into your project root, or clone this repo and s
 Two reusable workflows live in `.github/workflows/` so every repo calls one instead of
 maintaining its own copy. Change the verify loop here and it lands everywhere on the next run.
 
-**Node** — install → typecheck → test → build. An empty script name skips that gate, so a
+**Node** — install → lint → typecheck → test → build. An empty script name skips that gate, so a
 repo without tests says so rather than faking a green suite.
 
 ```yaml
@@ -32,7 +32,8 @@ jobs:
     uses: mark-mcdermott/mm-claude-starter/.github/workflows/node-verify.yml@main
     with:
       node-version: "25"
-      test-script: ""   # no suite yet
+      lint-script: lint  # off by default; not every repo has one
+      test-script: ""    # no suite yet
 ```
 
 **Bash** — shellcheck + a test command, optionally across a runner matrix.
