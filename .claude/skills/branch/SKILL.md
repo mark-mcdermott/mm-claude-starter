@@ -243,6 +243,8 @@ Commit any remaining changes from reviews/QA/slop-check/README.
 
 #### d. Create PR
 
+Open it **ready for review** — never `--draft`.
+
 ```bash
 git push -u origin <branch>
 gh pr create --title "<clear description, under 70 chars>" --body "$(cat <<'EOF'
