@@ -38,7 +38,7 @@ jobs:
     if: inputs.shellcheck-paths != ''
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Shellcheck
         env:
@@ -57,7 +57,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Install bats
         if: inputs.install-bats
