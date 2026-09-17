@@ -1,0 +1,74 @@
+name: bash-verify
+
+# Shared verify loop for the bash CLIs (skel, puravida, and whatever follows
+# them onto Homebrew). Both gates are opt-in: an empty input skips the job.
+#
+# Usage:
+#   jobs:
+#     verify:
+#       uses: mark-mcdermott/mm-claude-starter/.github/workflows/bash-verify.yml@main
+#       with:
+#         shellcheck-paths: puravida
+#         test-command: bats test/
+#         install-bats: true
+#         os: '["ubuntu-latest", "macos-latest"]'
+
+on:
+  workflow_call:
+    inputs:
+      shellcheck-paths:
+        description: Space-separated files/dirs to lint. Empty skips the gate.
+        type: string
+        default: ""
+      test-command:
+        description: Command that runs the suite, run through bash -c. Empty skips the gate.
+        type: string
+        default: ""
+      os:
+        description: JSON array of runners for the test matrix.
+        type: string
+        default: '["ubuntu-latest"]'
+      install-bats:
+        description: Install bats-core before testing. Ignored when test-command is empty.
+        type: boolean
+        default: false
+
+jobs:
+  shellcheck:
+    if: inputs.shellcheck-paths != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Shellcheck
+        env:
+          PATHS: ${{ inputs.shellcheck-paths }}
+        # Unquoted on purpose: PATHS is a space-separated list of targets.
+        # shellcheck disable=SC2086
+        run: shellcheck $PATHS
+
+  test:
+    if: inputs.test-command != ''
+    name: test (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ${{ fromJSON(inputs.os) }}
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install bats
+        if: inputs.install-bats
+        run: |
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            brew install bats-core
+          else
+            sudo apt-get update && sudo apt-get install -y bats
+          fi
+
+      - name: Test
+        env:
+          CMD: ${{ inputs.test-command }}
+        run: bash -c "$CMD"
