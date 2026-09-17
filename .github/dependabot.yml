@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # This repo ships no package manifest — the only moving parts are the action
+  # versions pinned inside the reusable workflows.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      actions:
+        patterns: ["*"]
