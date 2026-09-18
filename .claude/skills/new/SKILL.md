@@ -3,9 +3,9 @@ name: new
 description: /new <name> <stack> — bootstrap a project: scaffold the stack and stamp <project>/.claude/settings.json (permissions, commit style, automerge, stack)
 usage: /new <name> <STACK> [commit=conventional|gitmoji] [perms=loose|tight] [automerge=on|off]
 examples:
-  - /new loopixel RATS
-  - /new retireat55 ZENCATS automerge=on
-  - /new no-dinos TANS perms=tight commit=gitmoji
+  - /new loopixel RW
+  - /new retireat55 DNC-BARBAWSZ automerge=on
+  - /new no-dinos RAW perms=tight commit=gitmoji
 allowed-tools:
   - Bash(npm:*)
   - Bash(npx:*)
@@ -27,7 +27,7 @@ Scaffolds a new project in the right stack and stamps its per-project config int
 ## Arguments
 
 - **name** (required): project slug, e.g. `loopixel`.
-- **stack** (required): one of `ZENCATS`, `RAVEHANDS`, `RATS`, `TANS`, `REST`. If missing or unknown, print the five (with one-line expansions from `~/Dev/_PROJECTS.md` → Stacks) and ask — the one exception to running autonomously.
+- **stack** (required): any name in `~/Dev/_PROJECTS/README.md` → Stacks. **Read that file — never a list cached here**; the names change. If missing or unknown, print the current set with their one-line expansions and ask — the one exception to running autonomously.
 - Optional overrides (else use the global defaults in `~/.claude/CLAUDE.md` → Defaults):
   - `commit=conventional|gitmoji` (default `conventional`)
   - `perms=loose|tight` (default `loose`)
@@ -36,23 +36,44 @@ Scaffolds a new project in the right stack and stamps its per-project config int
 ## Steps
 
 ### 1. Resolve & validate
-- Confirm `stack` is one of the five. Read its expansion from `~/Dev/_PROJECTS.md`.
+- Confirm `stack` appears in `~/Dev/_PROJECTS/README.md` → Stacks, and read its expansion from there. The expansion drives everything in step 2.
 - Location (follow the convention): `~/Dev/<name>-proj/<name>`. **Stop if it already exists.**
 
 ### 2. Scaffold the base framework
 
-| Stack | Base scaffold |
-|---|---|
-| RATS · REST · RAVEHANDS · ZENCATS | `npm create vite@latest <name> -- --template react-ts` |
-| TANS | `npx create-next-app@latest <name> --ts --tailwind --eslint --app --src-dir --use-npm` |
+Pick the base from the shell the expansion names:
 
-Then add the per-stack pieces (install + minimal wiring):
-- **All:** Tailwind v4 (`@tailwindcss/vite` on Vite stacks), shadcn-ui (`npx shadcn@latest init`), `@vercel/analytics`.
-- **RATS · REST · RAVEHANDS:** `react-router`.
-- **RAVEHANDS · ZENCATS:** Drizzle + Neon (`drizzle-orm`, `drizzle-kit`, `@neondatabase/serverless`; schemas in `src/db/schema/`) + auth.
-  - RAVEHANDS auth = hand-rolled (legacy). **ZENCATS auth = passkeys/WebAuthn + TOTP fallback** (no passwords).
-- **ZENCATS:** add `zod`, Capacitor (`@capacitor/core`, `@capacitor/cli`), Tauri (`@tauri-apps/cli`).
-- **REST:** add Electron (`electron`, `electron-builder`).
+| Expansion contains | Base scaffold |
+|---|---|
+| **Astro** (the `DNC-BARBAW*` family, `RAW`, `AWZR`, `AW`) | `npm create astro@latest <name> -- --template minimal --typescript strict` |
+| **neXt** (`DUCXZ-WSRRANT`) | `npx create-next-app@latest <name> --ts --tailwind --eslint --app --src-dir --use-npm` |
+| neither (`RW`, `CRT`) | `npm create vite@latest <name> -- --template react-ts` |
+
+Then install **per letter, not per acronym** — a new name built from known letters scaffolds
+without editing this skill:
+
+| Letter | Install |
+|---|---|
+| **W** tailWind | `tailwindcss` + `@tailwindcss/vite`; `@import "tailwindcss"` in the global stylesheet |
+| **R** React *(in an Astro name)* | `@astrojs/react` + `react` + `react-dom` — islands, never whole pages |
+| **S** Shadcn | `npx shadcn@latest init` — **style `base-nova`** (Base UI). `new-york` (Radix) only for `DUCXZ-WSRRANT` |
+| **D** + **N** | `drizzle-orm`, `drizzle-kit`, `@neondatabase/serverless`; schemas in `src/db/schema/` |
+| **Z** Zod | `zod` |
+| **BA** Better Auth | `better-auth` + its Drizzle adapter |
+| **B** Blob / **U** Uploadthing | `@vercel/blob` / `uploadthing` + `@uploadthing/react` |
+| **Q** Query | `@tanstack/react-query` |
+| **C** Capacitor | `@capacitor/core`, `@capacitor/cli` |
+| **T** Tauri | `@tauri-apps/cli` |
+| **R** Resend *(in `AWZR`)* | `resend` |
+| **C** CodeMirror *(in `CRT`)* | `@codemirror/state`, `@codemirror/view`, `@codemirror/commands` |
+
+**All stacks:** `@vercel/analytics`.
+
+Three letters are ambiguous — resolve from the expansion in the README, never the letter
+alone: `R` is React, Radix or Resend depending on the name; `C` is Capacitor except in `CRT`,
+where it is CodeMirror; `A` is Astro except inside `BA`, and in `DUCXZ-WSRRANT` where it means
+hand-rolled auth. **Never scaffold hand-rolled auth into a new project** — that letter exists
+to describe diamondheart as it is, not as a template.
 
 Deep stack wiring (auth flows, Capacitor/Tauri native shells, Neon provisioning, Stripe) is **guided, not faked** — set up what installs cleanly headlessly, and record anything that needs accounts or interactive steps as a `## Setup TODO` in the project CLAUDE.md (step 4). Never report a piece as done if it isn't.
 

@@ -111,7 +111,7 @@ For each feature or checklist step:
 
 #### a. Write Tests
 
-Match the project's existing test setup. Default split for the Vite/React stacks (RATS · REST · RAVEHANDS · ZENCATS) and Next (TANS):
+Match the project's existing test setup. Default split for the React stacks — Astro-with-islands, Vite, or Next alike:
 - **Vitest** — unit & component logic (functions, hooks, components via Testing Library)
 - **Playwright** — end-to-end flows (real browser, user journeys)
 
