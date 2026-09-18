@@ -7,7 +7,7 @@ examples:
   - /preset commit gitmoji
   - /preset automerge on
   - /preset permissions tight
-  - /preset stack ZENCATS
+  - /preset stack DNC-BARBAWSZ
   - /preset reset
 allowed-tools:
   - Bash(git:*)
@@ -22,7 +22,7 @@ allowed-tools:
 Shows or changes the current project's config in `<project>/.claude/settings.json`. Edits **only** the project you're in — **never** global `~/.claude`. To establish these when starting a project, use `/new`.
 
 ## Keys
-`permissions` (loose|tight) · `commitStyle` (conventional|gitmoji) · `automerge` (on|off) · `stack` (ZENCATS|RAVEHANDS|RATS|TANS|REST)
+`permissions` (loose|tight) · `commitStyle` (conventional|gitmoji) · `automerge` (on|off) · `stack` (any name in `~/Dev/_PROJECTS/README.md` → Stacks)
 
 ## Behavior
 
@@ -41,7 +41,7 @@ Locate (or create, seeded from global defaults) `<project>/.claude/settings.json
 | `commit` | conventional · gitmoji | set `commitStyle` |
 | `permissions` | loose · tight | replace `permissions` with the object from `~/.claude/saved-presets/permissions-<value>.json` |
 | `automerge` | on · off | set `automerge` (true/false) |
-| `stack` | one of the five acronyms (validate against `~/Dev/_PROJECTS.md`) | set `stack` |
+| `stack` | any stack name defined in `~/Dev/_PROJECTS/README.md` → Stacks (validate against that file, never a cached list) | set `stack` |
 
 - Reject an unknown axis or value with a one-line usage hint — change nothing.
 - Preserve all other keys and the file's formatting.

@@ -39,11 +39,11 @@ Per-project config lives in `<project>/.claude/settings.json` (keys: `permission
 
 ## Stacks
 
-Stack acronyms (ZENCATS, RAVEHANDS, RATS, TANS), their expansions, per-project assignments, the auth rule of thumb, and common integrations live in `~/Dev/_PROJECTS/_PROJECTS.md`, maintained in its own private Git repository. Stack is a per-project fact, not a global setting — each project records its own in `<project>/.claude/settings.json` (`stack` key) and its CLAUDE.md. Read `_PROJECTS.md` when the taxonomy matters (scaffolding a new app, migrating a legacy one).
+Stack acronyms, their expansions, per-project assignments, the auth rule of thumb, and common integrations live in `~/Dev/_PROJECTS/README.md`, maintained in its own private Git repository. Stack is a per-project fact, not a global setting — each project records its own in `<project>/.claude/settings.json` (`stack` key) and its CLAUDE.md. Read that file when the taxonomy matters (scaffolding a new app, migrating a legacy one) — **the names change, so never work from a list cached here or in a skill.**
 
 ## Projects
 
-The full roster, the "Next up" priority list, and per-project stacks live in `~/Dev/_PROJECTS/_PROJECTS.md` — the version-controlled source of truth, kept current there rather than here.
+The full roster, the "Next up" priority list, and per-project stacks live in `~/Dev/_PROJECTS/README.md` — the version-controlled source of truth, kept current there rather than here.
 
 ## Available Skills
 
